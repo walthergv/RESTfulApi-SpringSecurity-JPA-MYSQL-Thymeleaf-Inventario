@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Listado Productos</title>
+
+</head>
+<body class="bg-dark">
+    <nav th:replace="~{home :: nav}"></nav>
+
+    <h1 style="color:#e9d558; font-family:Georgia" class="text-center mt-3 mb-3">Listado de Productos</h1>
+
+    <div class="container d-flex justify-content-center">
+        <a th:href="@{/productos/crear}" type="button" class="btn btn-primary mb-3">Agregar Producto</a>
+    </div>
+    <div class="container">
+        <table class="table table-bordered table-sm">
+            <thead class="thead-dark text-center">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Stock</th>
+                <th scope="col">P. Compra S/.</th>
+                <th scope="col">P. Venta S/.</th>
+                <th scope="col">Categoría</th>
+                <th scope="col">Proveedor</th>
+                <th scope="col">Accion</th>
+            </tr>
+            </thead>
+            <tbody style="color:lightblue;" class="text-center">
+            <tr th:each="producto : ${productos}">
+                <td th:text="${producto.id}"></td>
+                <td th:text="${producto.nombre}"></td>
+                <td th:text="${producto.descripcion}"></td>
+                <td th:text="${producto.stock}"></td>
+                <td th:text="${producto.precioCompra}"></td>
+                <td th:text="${producto.precioVenta}"></td>
+                <td th:text="${producto.categoria.nombre}"></td>
+                <td th:text="${producto.proveedor.nombre}"></td>
+                <td>
+                    <a th:href="@{/productos/editar/{id}(id=${producto.id})}" class="btn btn-info">Editar</a>
+                    <a th:href="@{/productos/{id}(id=${producto.id})}" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="container mt-3">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${currentPage == 0} ? disabled : ''">
+                        <a class="page-link bg-success text-light" th:href="@{${url}(page=0)}">Primero</a>
+                    </li>
+                    <li class="page-item" th:classappend="${!productos.hasPrevious()} ? disabled : ''">
+                        <a class="page-link bg-dark" th:href="@{${url}(page=${currentPage - 1})}">Anterior</a>
+                    </li>
+                    <li class="page-item" th:classappend="${!productos.hasNext()} ? disabled : ''">
+                        <a class="page-link bg-dark" th:href="@{${url}(page=${currentPage + 1})}">Siguiente</a>
+                    </li>
+                    <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? disabled : ''">
+                        <a class="page-link bg-success text-light" th:href="@{${url}(page=${totalPages - 1})}">Último</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    </body>
+</html>

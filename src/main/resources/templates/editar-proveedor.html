@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<title>Editar Proveedor</title>
+</head>
+<body class="bg-dark" >
+
+<nav th:replace="~{home :: nav}"></nav>
+
+<h1 style="color:#e9d558; font-family:Georgia" class="text-center mt-3 mb-3">Editar Proveedor</h1>
+
+<!--Formulario Editar Proveedor-->
+<div class="container col-lg-7 container justify-content-center ">
+    <form th:object="${proveedor}" style="color:lightblue;" method="post" th:action="@{/proveedor/{id}(id=${proveedor.id})}" >
+
+        <div class="row form-group justify-content-center m-1">
+            <div class="col-sm-3 m-1">
+                <div class="row">
+                    <label class="col-form-label">Nombre:</label>
+                </div>
+                <div class="row">
+                    <input th:field="*{nombre}" class="form-control" placeholder="Juggernaut" type="text" name="nombre" required  />
+                </div>
+            </div>
+        </div>
+        <div class="row form-group justify-content-center m-1">
+            <div class="col-sm-3 m-1">
+                <div class="row">
+                    <label class="col-form-label">Telefono:</label>
+                </div>
+                <div class="row">
+                    <input th:field="*{telefono}" class="form-control" placeholder="999888777" type="number" name="telefono" required  />
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group justify-content-center m-2">
+            <input class="btn btn-success" type="submit" value="Actualizar Categoria" />
+        </div>
+    </form>
+</div>
+</body>
+</html>

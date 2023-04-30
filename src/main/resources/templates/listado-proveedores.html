@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Listado Proveedores</title>
+</head>
+    <body class="bg-dark">
+
+    <nav th:replace="~{home :: nav}"></nav>
+
+    <h1 style="color:#e9d558; font-family:Georgia" class="text-center mt-3 mb-3">Listado de Proveedores</h1>
+
+    <div class="container d-flex justify-content-center">
+    <a th:href="@{/proveedores/crear}" type="button" class="btn btn-primary mb-3">Agregar Proveedor</a>
+</div>
+        <div class="container">
+            <table class="table table-bordered table-sm">
+                <thead class="thead-dark text-center">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Accion</th>
+                    </tr>
+                </thead>
+                <tbody style="color:lightblue;" class="text-center">
+                    <tr th:each="proveedor : ${proveedores}">
+                        <td th:text="${proveedor.id}"></td>
+                        <td th:text="${proveedor.nombre}"></td>
+                        <td th:text="${proveedor.telefono}"></td>
+                        <td>
+                            <a th:href="@{/proveedores/editar/{id}(id=${proveedor.id})}" class="btn btn-info">Editar</a>
+                            <a  class="btn btn-danger" data-toggle="modal" th:data-target="'#eliminarModal-' + ${proveedor.id}">Eliminar</a>
+                            <!-- Ventana modal para confirmar la eliminación -->
+                            <div class="modal fade" th:id="'eliminarModal-' + ${proveedor.id}" tabindex="-1" role="dialog" aria-labelledby="eliminarModalLabel" aria-hidden="true">
+                                <div class="modal-dialog " role="document">
+                                    <div class="modal-content bg-info">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-warning" id="eliminarModalLabel">Confirmar eliminación</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4 class="text-light">Se eliminara el Proveedor con sus productos asociados</h4>
+                                            <h5 class="text-light">¿Está seguro de que desea eliminar este Proveedor?</h5>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <a th:href="@{/proveedores/{id}(id=${proveedor.id})}" class="btn btn-danger">Sí, eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="container mt-3">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${currentPage == 0} ? disabled : ''">
+                            <a class="page-link bg-success text-light" th:href="@{${url}(page=0)}">Primero</a>
+                        </li>
+                        <li class="page-item" th:classappend="${!proveedores.hasPrevious()} ? disabled : ''">
+                            <a class="page-link bg-dark" th:href="@{${url}(page=${currentPage - 1})}">Anterior</a>
+                        </li>
+                        <li class="page-item" th:classappend="${!proveedores.hasNext()} ? disabled : ''">
+                            <a class="page-link bg-dark" th:href="@{${url}(page=${currentPage + 1})}">Siguiente</a>
+                        </li>
+                        <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? disabled : ''">
+                            <a class="page-link bg-success text-light" th:href="@{${url}(page=${totalPages - 1})}">Último</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+  </body>
+</html>

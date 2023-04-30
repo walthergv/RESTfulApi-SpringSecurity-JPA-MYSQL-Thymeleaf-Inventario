@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Crear Proveedor</title>
+</head>
+<body class="bg-dark">
+    <nav th:replace="~{home :: nav}"></nav>
+
+    <h1 style="color:#e9d558; font-family:Georgia" class="text-center mt-3 mb-3">Crear Proveedor</h1>
+    <!--Formulario Crear Categoria-->
+    <div class="container col-lg-6 col-md-6 container justify-content-center">
+        <form style="color:lightblue;" method="post" th:action="@{/proveedores}">
+            <div class="row form-group justify-content-center">
+                <label class="col-sm-2 col-form-label">Nombre:</label>
+                <div>
+                    <input class="form-control" placeholder="Pedro" type="text" name="nombre" required  />
+                </div>
+            </div>
+            <div class="row form-group justify-content-center">
+                <label class="col-sm-2 col-form-label">Telefono:</label>
+                <div>
+                    <input class="form-control" placeholder="999888777" type="number" name="telefono" required />
+                </div>
+            </div>
+            <div class="row form-group justify-content-center">
+                <input class="btn btn-success" type="submit" value="Crear Proveedor" />
+            </div>
+        </form>
+    </div>
+</body>
+</html>
