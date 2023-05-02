@@ -11,6 +11,16 @@ RESTful Api de gestion de inventario de productos.
 - Maven 3.1.1, definida en .mvn/wrapper/maven-wrapper.properties
 - MySQL 8.0.21
 
+## Diagrama Entidad-Relacion
+
+![Modelo Entidad-Relacion](https://github.com/walthergv/RESTfulApi-SpringBoot-Inventario/blob/master/screenshots/Diagrama%20Entidad-Relacion.jpg?raw=true)
+
+- Muchos productos son ofrecidos por un proveedor
+- Cada producto le pertenece a un proveedor
+
+- Una categoria presenta muchos productos
+- Cada producto le corresponde una categoria 
+
 ## Levantar proyecto:
 ### 1. Modificar las propiedades de la aplicacion
 En el archivo ```src/main/resources/application.properties``` modificar las siguientes propiedades:
