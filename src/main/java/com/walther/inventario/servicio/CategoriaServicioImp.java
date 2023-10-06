@@ -42,4 +42,9 @@ public class CategoriaServicioImp implements CategoriaServicio{
     public long countCategorias() {
         return categoriaRepositorio.count();
     }
+
+    @Override
+    public Page<Categoria> buscarCategoriasPorNombre(String nombre, Pageable pageable) {
+        return categoriaRepositorio.findByNombreContainingIgnoreCase(nombre, pageable);
+    }
 }

@@ -8,7 +8,7 @@
 </head>
 <body class="bg-dark" >
 
-<nav th:replace="~{home :: nav}"></nav>
+<nav th:replace="home :: nav"></nav>
 
 <h1 style="color:#e9d558; font-family:Georgia" class="text-center mt-3 mb-3">Editar Proveedor</h1>
 
@@ -22,7 +22,7 @@
                     <label class="col-form-label">Nombre:</label>
                 </div>
                 <div class="row">
-                    <input th:field="*{nombre}" class="form-control" placeholder="Juggernaut" type="text" name="nombre" required  />
+                    <input th:field="*{nombre}" class="form-control" type="text" name="nombre" required  />
                 </div>
             </div>
         </div>
@@ -32,13 +32,13 @@
                     <label class="col-form-label">Telefono:</label>
                 </div>
                 <div class="row">
-                    <input th:field="*{telefono}" class="form-control" placeholder="999888777" type="number" name="telefono" required  />
+                    <input th:field="*{telefono}" class="form-control" type="number" name="telefono" required  />
                 </div>
             </div>
         </div>
 
         <div class="row form-group justify-content-center m-2">
-            <input class="btn btn-success" type="submit" value="Actualizar Categoria" />
+            <input class="btn btn-success" type="submit" value="Actualizar Proveedor" />
         </div>
     </form>
 </div>

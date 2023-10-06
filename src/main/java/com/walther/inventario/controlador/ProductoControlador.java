@@ -1,10 +1,10 @@
 package com.walther.inventario.controlador;
 
 import com.walther.inventario.entidad.Categoria;
-import com.walther.inventario.entidad.Producto;
 import com.walther.inventario.entidad.Proveedor;
 import com.walther.inventario.servicio.CategoriaServicio;
 import com.walther.inventario.servicio.ProductoServicio;
+import com.walther.inventario.entidad.Producto;
 import com.walther.inventario.servicio.ProveedorServicio;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +38,7 @@ public class ProductoControlador {
         model.addAttribute("productos", productos);
         model.addAttribute("currentPage", productos.getNumber());
         model.addAttribute("totalPages", productos.getTotalPages());
+
         model.addAttribute("url", request.getRequestURI());
         return "listado-productos";
     }
@@ -52,14 +53,14 @@ public class ProductoControlador {
 
         Categoria categoria = categoriaServicio.obtenerCategoriaPorId(categoriaId);
 
-        Producto producto = new Producto();
-        producto.setNombre(nombre);
-        producto.setDescripcion(descripcion);
-        producto.setPrecioCompra(precioCompra);
-        producto.setPrecioVenta(precioVenta);
-        producto.setCategoria(categoria);
+        Producto inventario = new Producto();
+        inventario.setNombre(nombre);
+        inventario.setDescripcion(descripcion);
+        inventario.setPrecioCompra(precioCompra);
+        inventario.setPrecioVenta(precioVenta);
+        inventario.setCategoria(categoria);
 
-        return productoServicio.guardarProducto(producto);
+        return productoServicio.guardarProducto(inventario);
     }
      */
 
@@ -69,31 +70,18 @@ public class ProductoControlador {
         model.addAttribute("categorias", categorias);
         List<Proveedor> proveedores = proveedorServicio.listarTodosProveedores();
         model.addAttribute("proveedores", proveedores);
-        model.addAttribute("producto", new Producto());
+        model.addAttribute("inventario", new Producto());
 
         return "crear-producto";
     }
-/*
-    @GetMapping("/productos/crear")
-    public String mostrarFormularioCrearProducto(Model model) {
-        Producto producto = new Producto();
-        producto.setCategoria(new Categoria());
-        producto.setProveedor(new Proveedor());
-        model.addAttribute("producto", producto);
-        model.addAttribute("categorias", categoriaServicio.listarCategorias());
-        model.addAttribute("proveedores", proveedorServicio.listarProveedor());
-        return "crear-producto";
-    }
-
- */
     /*
     @PostMapping("/productos")
-    public String crearProducto(@ModelAttribute Producto producto) {
-        Categoria categoria = categoriaServicio.obtenerCategoriaPorId(producto.getCategoria().getId());
-        Proveedor proveedor = proveedorServicio.obtenerProveedorPorId(producto.getProveedor().getId());
-        producto.setCategoria(categoria);
-        producto.setProveedor(proveedor);
-        productoServicio.guardarProducto(producto);
+    public String crearProducto(@ModelAttribute Producto inventario) {
+        Categoria categoria = categoriaServicio.obtenerCategoriaPorId(inventario.getCategoria().getId());
+        Proveedor proveedor = proveedorServicio.obtenerProveedorPorId(inventario.getProveedor().getId());
+        inventario.setCategoria(categoria);
+        inventario.setProveedor(proveedor);
+        productoServicio.guardarProducto(inventario);
         return "redirect:/productos";
     }
 
@@ -136,7 +124,7 @@ public class ProductoControlador {
     }
 
     @PostMapping("/productos/{id}")
-    public String actuaizarProducto(@PathVariable int id, @ModelAttribute("producto") Producto producto, Model model){
+    public String actuaizarProducto(@PathVariable int id, @ModelAttribute("inventario") Producto producto, Model model){
         Producto producto1 = productoServicio.obtenerProductoPorId(id);
         producto1.setId(id);
         producto1.setNombre(producto.getNombre());
@@ -154,5 +142,23 @@ public class ProductoControlador {
     public String eliminarProducto(@PathVariable int id){
         productoServicio.eliminarProductoPorId(id);
         return "redirect:/productos";
+    }
+    @GetMapping("/productos/buscar")
+    public String buscarProductoPorNombre(
+            @RequestParam("nombre") String nombre,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            Model model
+    ) {
+        int pageSize = 6; // Tamaño de página
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<Producto> productos = (Page<Producto>) productoServicio.buscarProductoPorNombre(nombre, pageable);
+
+        // Agregar productos, currentPage, totalPages y url al modelo
+        model.addAttribute("productos", productos);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", productos.getTotalPages());
+        model.addAttribute("url", "/productos/buscar?nombre=" + nombre); // URL de búsqueda
+
+        return "listado-productos";
     }
 }

@@ -63,5 +63,15 @@ public class ProveedorControlador {
         proveedorServicio.eliminarProveedorPorId(id);
         return "redirect:/proveedores";
     }
+    @GetMapping("/proveedores/buscar")
+    public String buscarProveedor(@RequestParam("nombre") String nombre, @RequestParam(name = "page", defaultValue = "0") int page, Model model, HttpServletRequest request){
+        Pageable pageable = PageRequest.of(page, 6);
+        Page<Proveedor> proveedores = proveedorServicio.buscarProveedorPorNombre(nombre, pageable);
+        model.addAttribute("proveedores", proveedores);
+        model.addAttribute("currentPage", proveedores.getNumber());
+        model.addAttribute("totalPages", proveedores.getTotalPages());
+        model.addAttribute("url", request.getRequestURI());
+        return "listado-proveedores";
+    }
 
 }

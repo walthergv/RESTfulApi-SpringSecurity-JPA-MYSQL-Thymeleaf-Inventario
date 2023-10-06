@@ -21,8 +21,8 @@ public class Proveedor {
     private int id;
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
-    @Column(name = "telefono", nullable = false, length = 50)
-    private int telefono;
+    @Column(name = "telefono", nullable = false)
+    private Long telefono;
 
     @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL)
     private List<Producto> productoList = new ArrayList<>();

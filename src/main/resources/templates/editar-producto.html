@@ -9,7 +9,7 @@
 </head>
 <body class="bg-dark" >
 
-<nav th:replace="~{home :: nav}"></nav>
+<nav th:replace="home :: nav"></nav>
 
 <h1 style="color:#e9d558; font-family:Georgia" class="text-center mt-3 mb-3">Editar producto</h1>
 
@@ -58,7 +58,7 @@
                     <label class="col-form-label">Descripción:</label>
                 </div>
                 <div class="row">
-                    <textarea th:field="*{descripcion}" class="form-control" rows="1" name="descripcion" ></textarea>
+                    <textarea th:field="*{descripcion}" class="form-control" rows="1" name="descripcion" required></textarea>
                 </div>
             </div>
             <div class="col-sm-3 m-1">

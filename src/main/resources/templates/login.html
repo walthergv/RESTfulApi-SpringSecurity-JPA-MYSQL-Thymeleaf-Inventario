@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Inicio de sesion</title>
+
+</head>
+<body style="background-color: darkslategray">
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="container">
+        <style>
+            /* Estilos para centrar el contenido vertical y horizontalmente */
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh; /* Esto asegura que el contenedor ocupe toda la altura de la ventana. */
+            }
+        </style>
+        <div class="row">
+            <div class="col">
+                <div class="h1 text-light">Inicio de sesión</div>
+                    <form th:action="@{/login}" method="post">
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">
+                                Usuario o contraseña incorrecta
+                            </div>
+                        </div>
+                        <div th:if="${param.logout}">
+                            <div class="alert alert-info">
+                                Ha cerrado sesion exitosamente
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label text-light" for="username">Email</label>
+                            <input id="username" name="username" type="text" class="form-control" placeholder="Nombre" required autofocus="autofocus">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label text-light" for="password">Password</label>
+                            <input id="password" name="password" type="password" class="form-control" placeholder="Password" required autofocus="autofocus">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <div class="row">
+                               <div class="col">
+                                    <input type="submit" class="btn btn-primary " id="login-submit" value="Iniciar sesion"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                <br>
+                <div class="form-group text-center">
+                    <span class="text-info">Si eres nuevo usuario <a th:href="@{/registro}">Registrate aqui</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
+    <section class="vh-100">
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                         class="img-fluid" alt="Sample image">
+                </div>
+                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                    <form th:action="@{/login}" method="post">
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">
+                                Usuario o contraseña incorrecta
+                            </div>
+                        </div>
+                        <div th:if="${param.logout}">
+                            <div class="alert alert-info">
+                                Ha cerrado sesion exitosamente
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+                            <p class="lead fw-normal mb-0 me-3">Sign in with</p>
+                            <button type="button" class="btn btn-primary btn-floating mx-1">
+                                <i class="fab fa-facebook-f"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-primary btn-floating mx-1">
+                                <i class="fab fa-twitter"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-primary btn-floating mx-1">
+                                <i class="fab fa-linkedin-in"></i>
+                            </button>
+                        </div>
+
+                        <div class="divider d-flex align-items-center my-4">
+                            <p class="text-center fw-bold mx-3 mb-0">Or</p>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="email" id="username" name="username" class="form-control form-control-lg"
+                                   placeholder="Enter a valid email address" />
+                            <label class="form-label" for="username">Email address</label>
+                        </div>
+
+                        <div class="form-outline mb-3">
+                            <input type="password" id="password" name="password" class="form-control form-control-lg"
+                                   placeholder="Enter password" />
+                            <label class="form-label" for="password">Password</label>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <div class="form-check mb-0">
+                                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                                <label class="form-check-label" for="form2Example3">
+                                    Remember me
+                                </label>
+                            </div>
+                            <a href="#!" class="text-body">Forgot password?</a>
+                        </div>
+
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="submit" id="login-submit" class="btn btn-primary btn-lg"
+                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account?
+                                <a th:href="@{/registro}" class="link-danger">Register</a>
+                            </p>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div
+                class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+
+            <div class="text-white mb-3 mb-md-0">
+                Copyright © 2020. All rights reserved.
+            </div>
+
+
+
+            <div>
+                <a href="#!" class="text-white me-4">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#!" class="text-white me-4">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#!" class="text-white me-4">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="#!" class="text-white">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+-->
+
+<!--
+    <div class="loginBox"> <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
+        <h3>Sign in here</h3>
+        <form th:action="@{/login}" method="post">
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">
+                    Usuario o contraseña incorrecta
+                </div>
+            </div>
+            <div th:if="${param.logout}">
+                <div class="alert alert-info">
+                    Ha cerrado sesion exitosamente
+                </div>
+            </div>
+            <div class="inputBox">
+                <label class="control-label" for="username">Email</label>
+                <input id="username" type="text" name="username" placeholder="Email" required>
+                <label class="control-label" for="password">Password</label>
+                <input id="password" type="password" name="password" placeholder="Password" required>
+            </div>
+            <input type="submit" id="login-submit" value="Login"/>
+        </form>
+        <a href="#">Forget Password<br> </a>
+        <div class="text-center">
+            <p style="color: #59238F;">Sign-Up</p>
+        </div>
+    </div>
+    -->
+</body>
+</html>

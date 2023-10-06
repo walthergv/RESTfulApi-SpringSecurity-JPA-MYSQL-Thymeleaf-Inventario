@@ -14,4 +14,6 @@ public interface ProductoServicio {
     public Producto actualizarProducto(Producto producto);
     public void eliminarProductoPorId(int id);
     public long countProductos();
+
+    public Page<Producto> buscarProductoPorNombre(String nombre, Pageable pageable);
 }

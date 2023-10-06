@@ -1,7 +1,7 @@
 package com.walther.inventario.servicio;
 
-import com.walther.inventario.entidad.Producto;
 import com.walther.inventario.repositorio.ProductoRepositorio;
+import com.walther.inventario.entidad.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,4 +40,12 @@ public class ProductoServicioImp implements ProductoServicio{
     public long countProductos() {
         return productoRepositorio.count();
     }
+
+    @Override
+    public Page<Producto> buscarProductoPorNombre(String nombre, Pageable pageable) {
+        Page<Producto> productos = (Page<Producto>) productoRepositorio.findByNombreContainingIgnoreCase(nombre, pageable);
+        return productos;
+    }
+
+
 }

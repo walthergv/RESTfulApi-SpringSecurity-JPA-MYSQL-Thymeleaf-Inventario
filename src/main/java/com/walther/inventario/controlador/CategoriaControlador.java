@@ -46,7 +46,7 @@ public class CategoriaControlador {
         return "redirect:/categorias";
     }
     @GetMapping("/categorias/editar/{id}")
-    public String mostrarFormEditarProducto(@PathVariable int id, Model model){
+    public String mostrarFormEditarCategoria(@PathVariable int id, Model model){
         model.addAttribute("categoria", categoriaServicio.obtenerCategoriaPorId(id));
         return "editar-categoria" ;
     }
@@ -62,6 +62,17 @@ public class CategoriaControlador {
     public String eliminarCategoria(@PathVariable int id){
         categoriaServicio.eliminarCategoriaPorId(id);
         return "redirect:/categorias";
+    }
+
+    @GetMapping("/categorias/buscar")
+    public String buscarCategoriasPorNombre(@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "nombre") String nombre, Model model, HttpServletRequest request){
+        Pageable pageable = PageRequest.of(page, 6);
+        Page<Categoria> categorias = categoriaServicio.buscarCategoriasPorNombre(nombre, pageable);
+        model.addAttribute("categorias", categorias);
+        model.addAttribute("currentPage", categorias.getNumber());
+        model.addAttribute("totalPages", categorias.getTotalPages());
+        model.addAttribute("url", request.getRequestURI());
+        return "listado-categorias";
     }
 
 /*

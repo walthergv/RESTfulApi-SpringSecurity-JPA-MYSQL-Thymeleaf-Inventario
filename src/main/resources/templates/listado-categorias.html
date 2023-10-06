@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,26 +10,59 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <title>Listado Categorias</title>
+
+    <!-- cuadro de dialogo eliminar categoria -->
+    <!--
+    <script th:inline="javascript">
+        function showConfirmationDialog() {
+            if (confirm("¿Está seguro de que desea eliminar esta categoría y todos sus productos asociados?")) {
+                var form = document.createElement("form");
+                form.method = "POST";
+                form.action = "@{/categorias/{id}(id=${categoria.id})}?_method=DELETE";
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    </script>
+    -->
+
+
 </head>
-<body class="bg-dark">
-    <nav th:replace="~{home :: nav}"></nav>
+    <body class="bg-dark">
+        <nav th:replace="home :: nav"></nav>
 
-    <h1 style="color:#e9d558; font-family:Georgia" class="text-center mt-3 mb-3">Listado de Categorías</h1>
+        <h1 style="color:#e9d558; font-family:Georgia" class="text-center mt-3 mb-3">Listado de Categorías</h1>
 
-    <div class="container d-flex justify-content-center">
-        <a th:href="@{/categorias/crear}" type="button" class="btn btn-primary mb-3">Agregar Categoria</a>
-    </div>
+        <div class="container d-flex justify-content-center">
+            <a th:href="@{/categorias/crear}" type="button" class="btn btn-primary mb-3">Agregar Categoria</a>
+        </div>
 
-    <div class="container">
-        <table class="table table-bordered table-sm">
-            <thead class="thead-dark text-center">
+        <div class="container">
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <form th:action="@{/categorias/buscar}" method="get" class="form-inline">
+                    <div class="input-group">
+                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Buscar por nombre">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+
+            <div class="container">
+
+                <table class="table table-bordered table-sm">
+                <thead class="thead-dark text-center">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Accion</th>
                 </tr>
             </thead>
-            <tbody style="color:lightblue;" class="text-center">
+                <tbody style="color:lightblue;" class="text-center">
                 <tr th:each="categoria : ${categorias}">
                     <td th:text="${categoria.id}"></td>
                     <td th:text="${categoria.nombre}"></td>
@@ -60,25 +93,28 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
-        <div class="container mt-3">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item" th:classappend="${currentPage == 0} ? disabled : ''">
-                        <a class="page-link bg-success text-light" th:href="@{${url}(page=0)}">Primero</a>
-                    </li>
-                    <li class="page-item" th:classappend="${!categorias.hasPrevious()} ? disabled : ''">
-                        <a class="page-link bg-dark" th:href="@{${url}(page=${currentPage - 1})}">Anterior</a>
-                    </li>
-                    <li class="page-item" th:classappend="${!categorias.hasNext()} ? disabled : ''">
-                        <a class="page-link bg-dark" th:href="@{${url}(page=${currentPage + 1})}">Siguiente</a>
-                    </li>
-                    <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? disabled : ''">
-                        <a class="page-link bg-success text-light" th:href="@{${url}(page=${totalPages - 1})}">Último</a>
-                    </li>
-                </ul>
-            </nav>
+            </table>
+
+                <div class="container mt-3">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${currentPage == 0} ? disabled : ''">
+                            <a class="page-link bg-success text-light" th:href="@{${url}(page=0)}">Primero</a>
+                        </li>
+                        <li class="page-item" th:classappend="${!categorias.hasPrevious()} ? disabled : ''">
+                            <a class="page-link bg-dark" th:href="@{${url}(page=${currentPage - 1})}">Anterior</a>
+                        </li>
+                        <li class="page-item" th:classappend="${!categorias.hasNext()} ? disabled : ''">
+                            <a class="page-link bg-dark" th:href="@{${url}(page=${currentPage + 1})}">Siguiente</a>
+                        </li>
+                        <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? disabled : ''">
+                            <a class="page-link bg-success text-light" th:href="@{${url}(page=${totalPages - 1})}">Último</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

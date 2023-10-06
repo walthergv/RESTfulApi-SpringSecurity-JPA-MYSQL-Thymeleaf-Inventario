@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Registro de usuarios</title>
+</head>
+<body style="background-color: black">
+
+<div class="container">
+    <style>
+        /* Estilos para centrar el contenido vertical y horizontalmente */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Esto asegura que el contenedor ocupe toda la altura de la ventana. */
+        }
+    </style>
+        <div class="row">
+            <div class="col">
+                <div th:if="${param.success}">
+                    <div class="alert alert-info">
+                        Se ha registrado exitosamente
+                    </div>
+                </div>
+                    <h1 class="text-center text-light">Registrate</h1>
+                    <form th:action="@{/registro}" method="post" th:object="${usuario}">
+                        <div class="form-group text-light">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" th:field="*{nombre}" id="nombre" placeholder="Nombre" required autofocus="autofocus">
+                        </div>
+                        <div class="form-group text-light">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" class="form-control" th:field="*{apellido}" id="apellido" placeholder="Apellido" required autofocus="autofocus">
+                        </div>
+                        <div class="form-group text-light">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Email" required autofocus="autofocus">
+                        </div>
+                        <div class="form-group text-light">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" th:field="*{password}" id="password" placeholder="Password" required autofocus="autofocus">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                            <span class="text-light"> Estas registrado? <a th:href="@{/login}">Inicia sesion aqui</a></span>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

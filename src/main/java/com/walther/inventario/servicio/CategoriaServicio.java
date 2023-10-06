@@ -14,4 +14,5 @@ public interface CategoriaServicio {
     public Categoria actualizarCategoria(Categoria categoria);
     public void eliminarCategoriaPorId(int id);
     public long countCategorias();
+    public Page<Categoria> buscarCategoriasPorNombre(String nombre, Pageable pageable);
 }

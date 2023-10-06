@@ -14,4 +14,6 @@ public interface ProveedorServicio {
     public Proveedor actualizarProveedor(Proveedor proveedor);
     public void eliminarProveedorPorId(int id);
     public long countProveedor();
+
+    public Page<Proveedor> buscarProveedorPorNombre(String nombre, Pageable pageable);
 }

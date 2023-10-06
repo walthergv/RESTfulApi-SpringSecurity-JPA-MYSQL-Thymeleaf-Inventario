@@ -44,4 +44,9 @@ public class ProveedorServicioImp implements ProveedorServicio{
     public long countProveedor() {
         return proveedorRepositorio.count();
     }
+
+    @Override
+    public Page<Proveedor> buscarProveedorPorNombre(String nombre, Pageable pageable) {
+        return proveedorRepositorio.findByNombreContainingIgnoreCase(nombre, pageable);
+    }
 }
