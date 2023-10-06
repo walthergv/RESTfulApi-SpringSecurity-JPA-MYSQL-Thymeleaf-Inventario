@@ -1,8 +1,13 @@
 # RESTfulApi-SpringBoot-Inventario
 RESTful Api de gestion de inventario de productos.
+- Sistema de Inicio de sesión y Registro de usuarios
+- Buscar productos, categorias y proveedores registrados por sus nombres
 - Lista productos, categorias y proveedores registrados.
 - Mediante UI permite agregar, editar y eliminar informacion de las tablas. 
 - Usa MySQL como gestor de base de datos
+
+## Tecnologias
+- Spring Boot | Spring Security | Thymeleaf | JPA | MYSQL
 
 ## Requerimientos
 
@@ -23,6 +28,10 @@ RESTful Api de gestion de inventario de productos.
 
 ## Levantar proyecto:
 ### 1. Modificar las propiedades de la aplicacion
+1.1.  Crear la base de datos, con el siguiente script SQL:
+```sh
+create database bd_inventario;
+```
 En el archivo ```src/main/resources/application.properties``` modificar las siguientes propiedades:
 ```sh 
     spring.datasource.url=jdbc:mysql://localhost:3306/bd_inventario
@@ -30,10 +39,6 @@ En el archivo ```src/main/resources/application.properties``` modificar las sigu
     spring.datasource.password=1234
     spring.jpa.hibernate.ddl-auto=none
     server.port=8091
-```
-1.1.  Crear la base de datos, con el siguiente script SQL:
-```sh
-create database bd_inventario;
 ```
 1.2.  En "__username__" y "__password__" colocar sus credenciales de MySQL.
 
@@ -49,9 +54,10 @@ Abrir cualquier navegador e ingresar a la url: __localhost:8091/home__
 # Screenshots
 Algunas capturas del funcionamiento de la aplicacion.
 
+![Registrate](https://github.com/walthergv/RESTfulApi-SpringBoot-Thymeleaf-Inventario/blob/master/screenshots/registrar.png?raw=true)
 ![Login](https://github.com/walthergv/RESTfulApi-SpringBoot-Thymeleaf-Inventario/blob/master/screenshots/login.png?raw=true)
-![Pagina Principal](https://github.com/walthergv/RESTfulApi-SpringBoot-Inventario/blob/master/screenshots/home.jpg?raw=true)
-![Listar Productos](https://github.com/walthergv/RESTfulApi-SpringBoot-Inventario/blob/master/screenshots/listarProductos.jpg?raw=true)
-![Crear Producto](https://raw.githubusercontent.com/walthergv/RESTfulApi-SpringBoot-Inventario/master/screenshots/CrearProducto.jpg)
-![Eliminar Categoria](https://github.com/walthergv/RESTfulApi-SpringBoot-Inventario/blob/master/screenshots/eliminarCategoria.jpg?raw=true)
-![Editar Producto](https://github.com/walthergv/RESTfulApi-SpringBoot-Inventario/blob/master/screenshots/editarProducto.jpg?raw=true)
+![Pagina Principal](https://github.com/walthergv/RESTfulApi-SpringBoot-Inventario/blob/master/screenshots/home.png?raw=true)
+![Listar Productos](https://github.com/walthergv/RESTfulApi-SpringBoot-Inventario/blob/master/screenshots/listarProductos.png?raw=true)
+![Crear Producto](https://raw.githubusercontent.com/walthergv/RESTfulApi-SpringBoot-Inventario/master/screenshots/CrearProducto.png)
+![Eliminar Categoria](https://github.com/walthergv/RESTfulApi-SpringBoot-Inventario/blob/master/screenshots/eliminarCategoria.png?raw=true)
+![Editar Producto](https://github.com/walthergv/RESTfulApi-SpringBoot-Inventario/blob/master/screenshots/editarProducto.png?raw=true)
